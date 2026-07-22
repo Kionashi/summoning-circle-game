@@ -1,0 +1,213 @@
+[gd_scene format=3 uid="uid://2ee52dr17252"]
+
+[ext_resource type="Texture2D" uid="uid://br4opg8ctp0hs" path="res://assets/images/shelf.png" id="1_tw82s"]
+[ext_resource type="Script" uid="uid://nj1hdjl1vob2" path="res://addons/drag_and_drop/scripts/drop_zone.gd" id="2_oyalq"]
+[ext_resource type="Script" uid="uid://b5wqxyc42r5u" path="res://addons/drag_and_drop/resources/drop_behaviors/drop_behavior_reject.gd" id="3_jrn4c"]
+[ext_resource type="Script" uid="uid://djdmnemxrx7bg" path="res://addons/drag_and_drop/resources/draggable_types/draggable_type.gd" id="4_n25ve"]
+[ext_resource type="Texture2D" uid="uid://7rio324vx8ir" path="res://assets/images/skull.png" id="5_nl3ju"]
+[ext_resource type="Script" uid="uid://deuavk5443jri" path="res://addons/drag_and_drop/resources/drop_behaviors/drop_behavior_rearrange.gd" id="6_7omqp"]
+[ext_resource type="Script" uid="uid://crmnw3ldr3xev" path="res://addons/drag_and_drop/scripts/draggable.gd" id="6_rm377"]
+[ext_resource type="Texture2D" uid="uid://bdacgr0f5oypo" path="res://assets/images/candle.png" id="7_oyalq"]
+[ext_resource type="Texture2D" uid="uid://8rpvsrvavlv7" path="res://assets/images/crystal.png" id="8_jrn4c"]
+[ext_resource type="Texture2D" uid="uid://dndw63m0qdshh" path="res://assets/images/feather.png" id="9_nl3ju"]
+[ext_resource type="Texture2D" uid="uid://b32icay5uq2lu" path="res://assets/images/book.png" id="10_rm377"]
+[ext_resource type="Texture2D" uid="uid://d2uhh8fsq45il" path="res://assets/images/plants.png" id="11_rm377"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w0r3"]
+size = Vector2(915, 191)
+
+[sub_resource type="Resource" id="Resource_rm377"]
+script = ExtResource("6_7omqp")
+metadata/_custom_type_script = "uid://deuavk5443jri"
+
+[sub_resource type="Resource" id="Resource_h1dwa"]
+script = ExtResource("4_n25ve")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7omqp"]
+radius = 66.0
+height = 152.0
+
+[sub_resource type="Resource" id="Resource_tw82s"]
+script = ExtResource("4_n25ve")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tw82s"]
+radius = 73.552704
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jrn4c"]
+radius = 35.0
+height = 156.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n25ve"]
+size = Vector2(177, 164)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h4t55"]
+size = Vector2(907.5, 257.5)
+
+[sub_resource type="Resource" id="Resource_7omqp"]
+script = ExtResource("3_jrn4c")
+
+[sub_resource type="Resource" id="Resource_pb500"]
+script = ExtResource("4_n25ve")
+
+[node name="Node2D" type="Node2D" unique_id=1419461960]
+
+[node name="Shelf" type="Area2D" parent="." unique_id=793487924]
+z_index = -1
+position = Vector2(818, 60)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf" unique_id=925871629]
+position = Vector2(-247.5, 126)
+shape = SubResource("RectangleShape2D_8w0r3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Shelf" unique_id=1943968050]
+position = Vector2(-256, 96)
+scale = Vector2(0.65821093, 0.61752987)
+texture = ExtResource("1_tw82s")
+
+[node name="DropZone" type="Node2D" parent="Shelf" unique_id=968970697 node_paths=PackedStringArray("attach_spot")]
+script = ExtResource("2_oyalq")
+attach_spot = NodePath("..")
+drop_behavior = SubResource("Resource_rm377")
+accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_h1dwa")])
+metadata/_custom_type_script = "uid://nj1hdjl1vob2"
+
+[node name="Marker2D" type="Marker2D" parent="Shelf/DropZone" unique_id=2100336528]
+position = Vector2(-607, 132)
+
+[node name="Marker2D2" type="Marker2D" parent="Shelf/DropZone" unique_id=706806674]
+position = Vector2(-467, 132)
+
+[node name="Marker2D3" type="Marker2D" parent="Shelf/DropZone" unique_id=1301265604]
+position = Vector2(-325, 132)
+
+[node name="Marker2D4" type="Marker2D" parent="Shelf/DropZone" unique_id=578541419]
+position = Vector2(-177, 129)
+
+[node name="Marker2D5" type="Marker2D" parent="Shelf/DropZone" unique_id=670311815]
+position = Vector2(-38, 132)
+
+[node name="Marker2D6" type="Marker2D" parent="Shelf/DropZone" unique_id=937216918]
+position = Vector2(105, 134)
+
+[node name="Items" type="Node2D" parent="." unique_id=2039916496]
+
+[node name="Feather" type="Area2D" parent="Items" unique_id=353933337]
+position = Vector2(797, 198)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Feather" unique_id=658935665]
+position = Vector2(-14, 0)
+shape = SubResource("CapsuleShape2D_7omqp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/Feather" unique_id=1847408285]
+position = Vector2(-8.000046, -4)
+scale = Vector2(0.85897434, 0.702952)
+texture = ExtResource("9_nl3ju")
+
+[node name="Draggable" type="Node" parent="Items/Feather" unique_id=180658167]
+script = ExtResource("6_rm377")
+type = SubResource("Resource_tw82s")
+metadata/_custom_type_script = "uid://crmnw3ldr3xev"
+
+[node name="Skull" type="Area2D" parent="Items" unique_id=1036122171]
+position = Vector2(354, 193)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Skull" unique_id=1222047992]
+position = Vector2(-4, -3)
+shape = SubResource("CircleShape2D_tw82s")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/Skull" unique_id=1632256633]
+position = Vector2(-8.000046, -4)
+scale = Vector2(0.85897434, 0.702952)
+texture = ExtResource("5_nl3ju")
+flip_h = true
+
+[node name="Draggable" type="Node" parent="Items/Skull" unique_id=70309507]
+script = ExtResource("6_rm377")
+type = SubResource("Resource_tw82s")
+metadata/_custom_type_script = "uid://crmnw3ldr3xev"
+
+[node name="Candle" type="Area2D" parent="Items" unique_id=1420102421]
+position = Vector2(490, 192)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Candle" unique_id=436592414]
+position = Vector2(5, 11)
+shape = SubResource("CircleShape2D_tw82s")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/Candle" unique_id=314975088]
+position = Vector2(-8.000046, -4)
+scale = Vector2(0.85897434, 0.702952)
+texture = ExtResource("7_oyalq")
+flip_h = true
+
+[node name="Draggable" type="Node" parent="Items/Candle" unique_id=36828184]
+script = ExtResource("6_rm377")
+type = SubResource("Resource_tw82s")
+metadata/_custom_type_script = "uid://crmnw3ldr3xev"
+
+[node name="Crystal" type="Area2D" parent="Items" unique_id=596074950]
+position = Vector2(658, 195)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Crystal" unique_id=678695005]
+position = Vector2(-14, 0)
+shape = SubResource("CapsuleShape2D_jrn4c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/Crystal" unique_id=390067448]
+position = Vector2(-8.000046, -4)
+scale = Vector2(0.85897434, 0.702952)
+texture = ExtResource("8_jrn4c")
+flip_h = true
+
+[node name="Draggable" type="Node" parent="Items/Crystal" unique_id=1169085054]
+script = ExtResource("6_rm377")
+type = SubResource("Resource_tw82s")
+metadata/_custom_type_script = "uid://crmnw3ldr3xev"
+
+[node name="Book" type="Area2D" parent="Items" unique_id=1131464767]
+position = Vector2(951, 200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Book" unique_id=1504096768]
+position = Vector2(-4.5, -3)
+shape = SubResource("RectangleShape2D_n25ve")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/Book" unique_id=1086293506]
+position = Vector2(-8.000046, -4)
+scale = Vector2(0.85897434, 0.702952)
+texture = ExtResource("10_rm377")
+flip_h = true
+
+[node name="Draggable" type="Node" parent="Items/Book" unique_id=1002300236]
+script = ExtResource("6_rm377")
+type = SubResource("Resource_tw82s")
+metadata/_custom_type_script = "uid://crmnw3ldr3xev"
+
+[node name="Plants" type="Area2D" parent="Items" unique_id=660057247]
+position = Vector2(208, 192)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Plants" unique_id=1472423043]
+position = Vector2(-14, 0)
+shape = SubResource("CapsuleShape2D_7omqp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/Plants" unique_id=1080267204]
+position = Vector2(-8.000046, -4)
+scale = Vector2(0.85897434, 0.702952)
+texture = ExtResource("11_rm377")
+flip_h = true
+
+[node name="Draggable" type="Node" parent="Items/Plants" unique_id=436697290]
+script = ExtResource("6_rm377")
+type = SubResource("Resource_tw82s")
+metadata/_custom_type_script = "uid://crmnw3ldr3xev"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1136317733]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1692169503]
+position = Vector2(567.75, 479.25)
+shape = SubResource("RectangleShape2D_h4t55")
+
+[node name="DropZone" type="Node2D" parent="Area2D" unique_id=2136353334 node_paths=PackedStringArray("attach_spot")]
+script = ExtResource("2_oyalq")
+attach_spot = NodePath("..")
+drop_behavior = SubResource("Resource_7omqp")
+snap_style = 0
+accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_pb500")])
+metadata/_custom_type_script = "uid://nj1hdjl1vob2"
