@@ -13,10 +13,15 @@
 [ext_resource type="Texture2D" uid="uid://dndw63m0qdshh" path="res://assets/images/feather.png" id="9_nl3ju"]
 [ext_resource type="Texture2D" uid="uid://b32icay5uq2lu" path="res://assets/images/book.png" id="10_rm377"]
 [ext_resource type="Texture2D" uid="uid://d2uhh8fsq45il" path="res://assets/images/plants.png" id="11_rm377"]
-[ext_resource type="Script" uid="uid://cii78vkjpk6h5" path="res://scenes/inventory_trigger.gd" id="14_pb500"]
+[ext_resource type="Script" uid="uid://bqh2wudvq1ker" path="res://scenes/item_slot.gd" id="14_4qg5k"]
+[ext_resource type="Texture2D" uid="uid://6kkjvtsekrag" path="res://assets/images/circle.png" id="14_pb500"]
+[ext_resource type="Script" uid="uid://d3skawwsyy6qr" path="res://scenes/drag_layer.gd" id="16_ilsen"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1dwa"]
+size = Vector2(1151, 29)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w0r3"]
-size = Vector2(915, 191)
+size = Vector2(878, 179.5)
 
 [sub_resource type="Resource" id="Resource_rm377"]
 script = ExtResource("6_7omqp")
@@ -25,207 +30,322 @@ metadata/_custom_type_script = "uid://deuavk5443jri"
 [sub_resource type="Resource" id="Resource_h1dwa"]
 script = ExtResource("4_n25ve")
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7omqp"]
-radius = 66.0
-height = 152.0
-
 [sub_resource type="Resource" id="Resource_tw82s"]
 script = ExtResource("4_n25ve")
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8w0r3"]
+radius = 19.0
+height = 108.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_tw82s"]
-radius = 73.552704
+radius = 50.48762
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jrn4c"]
-radius = 35.0
-height = 156.0
+radius = 27.0
+height = 122.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n25ve"]
-size = Vector2(177, 164)
+size = Vector2(119, 121)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h4t55"]
-size = Vector2(907.5, 257.5)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7omqp"]
+radius = 41.0
+height = 152.0
 
-[sub_resource type="Resource" id="Resource_7omqp"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qg5k"]
+radius = 69.97142
+
+[sub_resource type="Resource" id="Resource_4qg5k"]
 script = ExtResource("3_jrn4c")
+
+[sub_resource type="Resource" id="Resource_ilsen"]
+script = ExtResource("4_n25ve")
 
 [sub_resource type="Resource" id="Resource_pb500"]
 script = ExtResource("4_n25ve")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1dwa"]
-size = Vector2(1151, 29)
-
 [node name="Node2D" type="Node2D" unique_id=1419461960]
+z_index = 2
 
-[node name="Shelf" type="Area2D" parent="." unique_id=793487924 node_paths=PackedStringArray("inventory_trigger", "items")]
-z_index = -7
-position = Vector2(839, -246)
+[node name="Inventory" type="CanvasLayer" parent="." unique_id=1657509926]
+
+[node name="InventoryTrigger" type="Area2D" parent="Inventory" unique_id=1509946536]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inventory/InventoryTrigger" unique_id=2056459918]
+position = Vector2(565.5, 4.5)
+shape = SubResource("RectangleShape2D_h1dwa")
+
+[node name="Shelf" type="Area2D" parent="Inventory" unique_id=793487924 node_paths=PackedStringArray("inventory_trigger", "items", "dragLayer")]
+z_index = -1
+position = Vector2(839, -248)
 script = ExtResource("1_h1dwa")
 inventory_trigger = NodePath("../InventoryTrigger")
 items = NodePath("Items")
+dragLayer = NodePath("../../DragLayer")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf" unique_id=925871629]
-position = Vector2(-247.5, 126)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inventory/Shelf" unique_id=925871629]
+position = Vector2(-229, 131.75)
 shape = SubResource("RectangleShape2D_8w0r3")
 
-[node name="Sprite2D" type="Sprite2D" parent="Shelf" unique_id=1943968050]
-position = Vector2(-256, 96)
-scale = Vector2(0.65821093, 0.61752987)
+[node name="Sprite2D" type="Sprite2D" parent="Inventory/Shelf" unique_id=1943968050]
+position = Vector2(-236.00002, 124.499985)
+scale = Vector2(0.63150865, 0.50398403)
 texture = ExtResource("1_tw82s")
 
-[node name="DropZone" type="Node2D" parent="Shelf" unique_id=968970697 node_paths=PackedStringArray("attach_spot")]
+[node name="DropZone" type="Node2D" parent="Inventory/Shelf" unique_id=968970697 node_paths=PackedStringArray("attach_spot")]
+z_index = 30
 script = ExtResource("2_oyalq")
 attach_spot = NodePath("..")
 drop_behavior = SubResource("Resource_rm377")
 accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_h1dwa")])
 metadata/_custom_type_script = "uid://nj1hdjl1vob2"
 
-[node name="Marker2D" type="Marker2D" parent="Shelf/DropZone" unique_id=2100336528]
-position = Vector2(-607, 132)
+[node name="Marker2D" type="Marker2D" parent="Inventory/Shelf/DropZone" unique_id=2100336528]
+position = Vector2(-576, 146)
 
-[node name="Marker2D2" type="Marker2D" parent="Shelf/DropZone" unique_id=706806674]
-position = Vector2(-467, 132)
+[node name="Marker2D2" type="Marker2D" parent="Inventory/Shelf/DropZone" unique_id=706806674]
+position = Vector2(-440, 151)
 
-[node name="Marker2D3" type="Marker2D" parent="Shelf/DropZone" unique_id=1301265604]
-position = Vector2(-325, 132)
+[node name="Marker2D3" type="Marker2D" parent="Inventory/Shelf/DropZone" unique_id=1301265604]
+position = Vector2(-302, 145)
 
-[node name="Marker2D4" type="Marker2D" parent="Shelf/DropZone" unique_id=578541419]
-position = Vector2(-177, 129)
+[node name="Marker2D4" type="Marker2D" parent="Inventory/Shelf/DropZone" unique_id=578541419]
+position = Vector2(-163, 150)
 
-[node name="Marker2D5" type="Marker2D" parent="Shelf/DropZone" unique_id=670311815]
-position = Vector2(-38, 132)
+[node name="Marker2D5" type="Marker2D" parent="Inventory/Shelf/DropZone" unique_id=670311815]
+position = Vector2(-24, 145)
 
-[node name="Marker2D6" type="Marker2D" parent="Shelf/DropZone" unique_id=937216918]
-position = Vector2(105, 134)
+[node name="Marker2D6" type="Marker2D" parent="Inventory/Shelf/DropZone" unique_id=937216918]
+position = Vector2(107, 147)
 
-[node name="Items" type="Node2D" parent="Shelf" unique_id=2039916496]
+[node name="Items" type="Node2D" parent="Inventory/Shelf" unique_id=2039916496]
+z_index = 4
 position = Vector2(-792, -76)
 
-[node name="Feather" type="Area2D" parent="Shelf/Items" unique_id=353933337]
-position = Vector2(797, 198)
+[node name="Feather" type="Area2D" parent="Inventory/Shelf/Items" unique_id=353933337]
+z_index = 2
+position = Vector2(772, 214)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf/Items/Feather" unique_id=658935665]
-position = Vector2(-14, 0)
-shape = SubResource("CapsuleShape2D_7omqp")
-
-[node name="Sprite2D" type="Sprite2D" parent="Shelf/Items/Feather" unique_id=1847408285]
-position = Vector2(-8.000046, -4)
-scale = Vector2(0.85897434, 0.702952)
+[node name="Sprite2D" type="Sprite2D" parent="Inventory/Shelf/Items/Feather" unique_id=1847408285]
+z_index = 2
+position = Vector2(-3.000023, 5.000002)
+scale = Vector2(0.5190398, 0.5313006)
 texture = ExtResource("9_nl3ju")
 
-[node name="Draggable" type="Node" parent="Shelf/Items/Feather" unique_id=180658167]
+[node name="Draggable" type="Node" parent="Inventory/Shelf/Items/Feather" unique_id=180658167]
 script = ExtResource("6_rm377")
 type = SubResource("Resource_tw82s")
 metadata/_custom_type_script = "uid://crmnw3ldr3xev"
 
-[node name="Skull" type="Area2D" parent="Shelf/Items" unique_id=1036122171]
-position = Vector2(354, 193)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inventory/Shelf/Items/Feather" unique_id=829886887]
+shape = SubResource("CapsuleShape2D_8w0r3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf/Items/Skull" unique_id=1222047992]
-position = Vector2(-4, -3)
+[node name="Skull" type="Area2D" parent="Inventory/Shelf/Items" unique_id=1036122171]
+position = Vector2(352, 227)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inventory/Shelf/Items/Skull" unique_id=1222047992]
+position = Vector2(2, 3)
 shape = SubResource("CircleShape2D_tw82s")
 
-[node name="Sprite2D" type="Sprite2D" parent="Shelf/Items/Skull" unique_id=1632256633]
-position = Vector2(-8.000046, -4)
-scale = Vector2(0.85897434, 0.702952)
+[node name="Sprite2D" type="Sprite2D" parent="Inventory/Shelf/Items/Skull" unique_id=1632256633]
+position = Vector2(2.0000095, -4.999998)
+scale = Vector2(0.6551284, 0.550738)
 texture = ExtResource("5_nl3ju")
 flip_h = true
 
-[node name="Draggable" type="Node" parent="Shelf/Items/Skull" unique_id=70309507]
+[node name="Draggable" type="Node" parent="Inventory/Shelf/Items/Skull" unique_id=70309507]
 script = ExtResource("6_rm377")
 type = SubResource("Resource_tw82s")
 metadata/_custom_type_script = "uid://crmnw3ldr3xev"
 
-[node name="Candle" type="Area2D" parent="Shelf/Items" unique_id=1420102421]
-position = Vector2(490, 192)
+[node name="Candle" type="Area2D" parent="Inventory/Shelf/Items" unique_id=1420102421]
+position = Vector2(489, 226)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf/Items/Candle" unique_id=436592414]
-position = Vector2(5, 11)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inventory/Shelf/Items/Candle" unique_id=436592414]
+position = Vector2(3, -4)
 shape = SubResource("CircleShape2D_tw82s")
 
-[node name="Sprite2D" type="Sprite2D" parent="Shelf/Items/Candle" unique_id=314975088]
-position = Vector2(-8.000046, -4)
-scale = Vector2(0.85897434, 0.702952)
+[node name="Sprite2D" type="Sprite2D" parent="Inventory/Shelf/Items/Candle" unique_id=314975088]
+position = Vector2(1.9999847, -5.000002)
+scale = Vector2(0.61213595, 0.5396679)
 texture = ExtResource("7_oyalq")
 flip_h = true
 
-[node name="Draggable" type="Node" parent="Shelf/Items/Candle" unique_id=36828184]
+[node name="Draggable" type="Node" parent="Inventory/Shelf/Items/Candle" unique_id=36828184]
 script = ExtResource("6_rm377")
 type = SubResource("Resource_tw82s")
 metadata/_custom_type_script = "uid://crmnw3ldr3xev"
 
-[node name="Crystal" type="Area2D" parent="Shelf/Items" unique_id=596074950]
-position = Vector2(658, 195)
+[node name="Crystal" type="Area2D" parent="Inventory/Shelf/Items" unique_id=596074950]
+position = Vector2(628, 221)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf/Items/Crystal" unique_id=678695005]
-position = Vector2(-14, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inventory/Shelf/Items/Crystal" unique_id=678695005]
+position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_jrn4c")
 
-[node name="Sprite2D" type="Sprite2D" parent="Shelf/Items/Crystal" unique_id=390067448]
-position = Vector2(-8.000046, -4)
-scale = Vector2(0.85897434, 0.702952)
+[node name="Sprite2D" type="Sprite2D" parent="Inventory/Shelf/Items/Crystal" unique_id=390067448]
+position = Vector2(0.999979, 0.9999981)
+scale = Vector2(0.59840655, 0.4943332)
 texture = ExtResource("8_jrn4c")
 flip_h = true
 
-[node name="Draggable" type="Node" parent="Shelf/Items/Crystal" unique_id=1169085054]
+[node name="Draggable" type="Node" parent="Inventory/Shelf/Items/Crystal" unique_id=1169085054]
 script = ExtResource("6_rm377")
 type = SubResource("Resource_tw82s")
 metadata/_custom_type_script = "uid://crmnw3ldr3xev"
 
-[node name="Book" type="Area2D" parent="Shelf/Items" unique_id=1131464767]
-position = Vector2(951, 200)
+[node name="Book" type="Area2D" parent="Inventory/Shelf/Items" unique_id=1131464767]
+position = Vector2(897, 224)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf/Items/Book" unique_id=1504096768]
-position = Vector2(-4.5, -3)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inventory/Shelf/Items/Book" unique_id=1504096768]
+position = Vector2(3, 0)
 shape = SubResource("RectangleShape2D_n25ve")
 
-[node name="Sprite2D" type="Sprite2D" parent="Shelf/Items/Book" unique_id=1086293506]
-position = Vector2(-8.000046, -4)
-scale = Vector2(0.85897434, 0.702952)
+[node name="Sprite2D" type="Sprite2D" parent="Inventory/Shelf/Items/Book" unique_id=1086293506]
+position = Vector2(4.9999695, 0)
+scale = Vector2(0.6059581, 0.51341933)
 texture = ExtResource("10_rm377")
 flip_h = true
 
-[node name="Draggable" type="Node" parent="Shelf/Items/Book" unique_id=1002300236]
+[node name="Draggable" type="Node" parent="Inventory/Shelf/Items/Book" unique_id=1002300236]
 script = ExtResource("6_rm377")
 type = SubResource("Resource_tw82s")
 metadata/_custom_type_script = "uid://crmnw3ldr3xev"
 
-[node name="Plants" type="Area2D" parent="Shelf/Items" unique_id=660057247]
-position = Vector2(208, 192)
+[node name="Herbs" type="Area2D" parent="Inventory/Shelf/Items" unique_id=660057247]
+position = Vector2(222, 227)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf/Items/Plants" unique_id=1472423043]
-position = Vector2(-14, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Inventory/Shelf/Items/Herbs" unique_id=1472423043]
+position = Vector2(-1, 2)
 shape = SubResource("CapsuleShape2D_7omqp")
 
-[node name="Sprite2D" type="Sprite2D" parent="Shelf/Items/Plants" unique_id=1080267204]
-position = Vector2(-8.000046, -4)
-scale = Vector2(0.85897434, 0.702952)
+[node name="Sprite2D" type="Sprite2D" parent="Inventory/Shelf/Items/Herbs" unique_id=1080267204]
+position = Vector2(-4, 3.999998)
+scale = Vector2(0.58857834, 0.55072415)
 texture = ExtResource("11_rm377")
 flip_h = true
 
-[node name="Draggable" type="Node" parent="Shelf/Items/Plants" unique_id=436697290]
+[node name="Draggable" type="Node" parent="Inventory/Shelf/Items/Herbs" unique_id=436697290]
 script = ExtResource("6_rm377")
 type = SubResource("Resource_tw82s")
 metadata/_custom_type_script = "uid://crmnw3ldr3xev"
 
-[node name="DropArea" type="Area2D" parent="." unique_id=1136317733]
+[node name="Background" type="CanvasLayer" parent="." unique_id=1232205129]
+layer = -1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DropArea" unique_id=1692169503]
-position = Vector2(567.75, 479.25)
-shape = SubResource("RectangleShape2D_h4t55")
+[node name="SummoningCircle" type="Area2D" parent="Background" unique_id=233163548]
+position = Vector2(26, 31)
 
-[node name="DropZone" type="Node2D" parent="DropArea" unique_id=2136353334 node_paths=PackedStringArray("attach_spot")]
+[node name="Sprite2D" type="Sprite2D" parent="Background/SummoningCircle" unique_id=2087223765]
+position = Vector2(563, 316)
+texture = ExtResource("14_pb500")
+
+[node name="SkullArea" type="Area2D" parent="Background/SummoningCircle" unique_id=1410135274]
+position = Vector2(385, 211)
+script = ExtResource("14_4qg5k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/SummoningCircle/SkullArea" unique_id=429849084]
+position = Vector2(1, -1)
+shape = SubResource("CircleShape2D_4qg5k")
+
+[node name="DropZone" type="Node2D" parent="Background/SummoningCircle/SkullArea" unique_id=140705210 node_paths=PackedStringArray("attach_spot")]
+position = Vector2(-1, -1)
 script = ExtResource("2_oyalq")
 attach_spot = NodePath("..")
-drop_behavior = SubResource("Resource_7omqp")
-snap_style = 0
+drop_behavior = SubResource("Resource_4qg5k")
+snap_style = 1
+accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_ilsen")])
+metadata/_custom_type_script = "uid://nj1hdjl1vob2"
+
+[node name="BookArea" type="Area2D" parent="Background/SummoningCircle" unique_id=1641587811]
+position = Vector2(388, 414)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/SummoningCircle/BookArea" unique_id=1585097372]
+position = Vector2(1, -1)
+shape = SubResource("CircleShape2D_4qg5k")
+
+[node name="DropZone" type="Node2D" parent="Background/SummoningCircle/BookArea" unique_id=111350393 node_paths=PackedStringArray("attach_spot")]
+position = Vector2(-1, -1)
+script = ExtResource("2_oyalq")
+attach_spot = NodePath("..")
+drop_behavior = SubResource("Resource_4qg5k")
+snap_style = 1
 accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_pb500")])
 metadata/_custom_type_script = "uid://nj1hdjl1vob2"
 
-[node name="InventoryTrigger" type="Area2D" parent="." unique_id=1509946536]
-script = ExtResource("14_pb500")
+[node name="FeatherArea" type="Area2D" parent="Background/SummoningCircle" unique_id=1188719950]
+position = Vector2(563, 512)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InventoryTrigger" unique_id=2056459918]
-position = Vector2(565.5, 4.5)
-shape = SubResource("RectangleShape2D_h1dwa")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/SummoningCircle/FeatherArea" unique_id=1126302942]
+position = Vector2(1, -1)
+shape = SubResource("CircleShape2D_4qg5k")
 
-[connection signal="mouse_entered" from="InventoryTrigger" to="InventoryTrigger" method="_on_mouse_entered"]
+[node name="DropZone" type="Node2D" parent="Background/SummoningCircle/FeatherArea" unique_id=1812154436 node_paths=PackedStringArray("attach_spot")]
+position = Vector2(-1, -1)
+script = ExtResource("2_oyalq")
+attach_spot = NodePath("..")
+drop_behavior = SubResource("Resource_4qg5k")
+snap_style = 1
+accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_pb500")])
+metadata/_custom_type_script = "uid://nj1hdjl1vob2"
+
+[node name="HerbsArea" type="Area2D" parent="Background/SummoningCircle" unique_id=1363463789]
+position = Vector2(737, 414)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/SummoningCircle/HerbsArea" unique_id=1338850846]
+position = Vector2(1, -1)
+shape = SubResource("CircleShape2D_4qg5k")
+
+[node name="DropZone" type="Node2D" parent="Background/SummoningCircle/HerbsArea" unique_id=149041644 node_paths=PackedStringArray("attach_spot")]
+position = Vector2(-1, -1)
+script = ExtResource("2_oyalq")
+attach_spot = NodePath("..")
+drop_behavior = SubResource("Resource_4qg5k")
+snap_style = 1
+accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_pb500")])
+metadata/_custom_type_script = "uid://nj1hdjl1vob2"
+
+[node name="CrystalArea" type="Area2D" parent="Background/SummoningCircle" unique_id=1823616069]
+position = Vector2(740, 211)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/SummoningCircle/CrystalArea" unique_id=464025148]
+position = Vector2(1, -1)
+shape = SubResource("CircleShape2D_4qg5k")
+
+[node name="DropZone" type="Node2D" parent="Background/SummoningCircle/CrystalArea" unique_id=1130119198 node_paths=PackedStringArray("attach_spot")]
+position = Vector2(-1, -1)
+script = ExtResource("2_oyalq")
+attach_spot = NodePath("..")
+drop_behavior = SubResource("Resource_4qg5k")
+snap_style = 1
+accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_pb500")])
+metadata/_custom_type_script = "uid://nj1hdjl1vob2"
+
+[node name="CandleArea" type="Area2D" parent="Background/SummoningCircle" unique_id=1445365486]
+position = Vector2(563, 98)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/SummoningCircle/CandleArea" unique_id=199397691]
+position = Vector2(1, -1)
+shape = SubResource("CircleShape2D_4qg5k")
+
+[node name="DropZone" type="Node2D" parent="Background/SummoningCircle/CandleArea" unique_id=45787952 node_paths=PackedStringArray("attach_spot")]
+position = Vector2(-1, -1)
+script = ExtResource("2_oyalq")
+attach_spot = NodePath("..")
+drop_behavior = SubResource("Resource_4qg5k")
+snap_style = 1
+accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_pb500")])
+metadata/_custom_type_script = "uid://nj1hdjl1vob2"
+
+[node name="ColorRect" type="ColorRect" parent="Background" unique_id=1572187073]
+z_index = -1
+offset_right = 1147.0
+offset_bottom = 645.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+color = Color(0.050980393, 0.05882353, 0.06666667, 1)
+
+[node name="DragLayer" type="CanvasLayer" parent="." unique_id=2025434541]
+layer = 2
+script = ExtResource("16_ilsen")
+
+[connection signal="mouse_entered" from="Inventory/InventoryTrigger" to="Inventory/InventoryTrigger" method="_on_mouse_entered"]
