@@ -206,13 +206,24 @@ func _get_closest_dropzone(areas: Array[Area2D]) -> DropZone:
 		if not found_zone:
 			continue
 		
-		var distance := a.global_position.distance_to(area.global_position)
+		var distance := _distance_to_zone(found_zone, area)
 		
 		if distance < best_distance:
 			best_distance = distance
 			closest_zone = found_zone
 	
 	return closest_zone
+
+# Distance from the dragged area to where it would actually land in the zone
+# (its closest snapping spot). Using the owning area's origin alone misranks
+# zones whose origin sits far from their markers (e.g. a wide shelf).
+func _distance_to_zone(zone: DropZone, area: Area2D) -> float:
+	var best := INF
+	for spot in zone.snapping_points:
+		best = minf(best, a.global_position.distance_to(spot.point.global_position))
+	if best == INF: # NO_SNAP zones have no spots; fall back to the area origin
+		best = a.global_position.distance_to(area.global_position)
+	return best
 	
 #endregion
 
