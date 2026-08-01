@@ -7,6 +7,8 @@ extends Area2D
 const INITIAL_POS: Vector2 = Vector2(800.0, -200.0)
 const FINAL_POS: Vector2 = Vector2(800.0, 0.0)
 
+signal ritual_completed
+
 var _is_open: bool = false
 var _tween: Tween
 var _circle_match = {}
@@ -23,12 +25,14 @@ func _ready() -> void:
 
 func _on_item_drag_started(area: Area2D) -> void:
 	area.reparent(dragLayer)
+
 func _on_item_drag_ended(_area: Area2D, drop_spot: SnappingSpot) -> void:
 	if !drop_spot || !drop_spot.point:
 		return
 	var target_area = drop_spot.point
-	var dragged_item = drop_spot.occupant
-	if target_area and target_area.name.contains('Area') and _is_open and dragged_item:
+	print(target_area.name)
+	var dragged_item = _area
+	if target_area and target_area.name.contains('Area') and dragged_item:
 		print(target_area.name)
 		print(dragged_item.name)
 		var matches = false
@@ -42,9 +46,10 @@ func _on_item_drag_ended(_area: Area2D, drop_spot: SnappingSpot) -> void:
 			return
 			
 		_close()
-		if (_circle_match.values.all(func(value): return value)):
-			print("success")
-		print("failure")
+		if (_is_ritual_valid()):
+			ritual_completed.emit(true)
+			return
+		ritual_completed.emit(false)
 
 func _create_unique_tween():
 	if _tween && _tween.is_valid():
@@ -73,4 +78,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory"):
 		toggle_inventory()
 		
-	
+func _is_ritual_valid() -> bool:
+	for index in _circle_match :
+		if !_circle_match[index]:
+			return false
+	return true

@@ -16,6 +16,8 @@
 [ext_resource type="Script" uid="uid://bqh2wudvq1ker" path="res://scenes/item_slot.gd" id="14_4qg5k"]
 [ext_resource type="Texture2D" uid="uid://6kkjvtsekrag" path="res://assets/images/circle.png" id="14_pb500"]
 [ext_resource type="Script" uid="uid://d3skawwsyy6qr" path="res://scenes/drag_layer.gd" id="16_ilsen"]
+[ext_resource type="Texture2D" uid="uid://cp6ljcy3fbtf5" path="res://assets/images/demon.png" id="16_xn73h"]
+[ext_resource type="Script" uid="uid://d2cpcjud7ojft" path="res://scenes/demon.gd" id="17_7uudr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1dwa"]
 size = Vector2(1151, 29)
@@ -335,6 +337,12 @@ drop_behavior = SubResource("Resource_4qg5k")
 snap_style = 1
 accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_pb500")])
 metadata/_custom_type_script = "uid://nj1hdjl1vob2"
+
+[node name="Demon" type="Sprite2D" parent="Background/SummoningCircle" unique_id=613870971 node_paths=PackedStringArray("shelf")]
+position = Vector2(564, 293)
+texture = ExtResource("16_xn73h")
+script = ExtResource("17_7uudr")
+shelf = NodePath("../../../Inventory/Shelf")
 
 [node name="ColorRect" type="ColorRect" parent="Background" unique_id=1572187073]
 z_index = -1
