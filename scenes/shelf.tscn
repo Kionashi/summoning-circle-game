@@ -18,6 +18,10 @@
 [ext_resource type="Script" uid="uid://d3skawwsyy6qr" path="res://scenes/drag_layer.gd" id="16_ilsen"]
 [ext_resource type="Texture2D" uid="uid://cp6ljcy3fbtf5" path="res://assets/images/demon.png" id="16_xn73h"]
 [ext_resource type="Script" uid="uid://d2cpcjud7ojft" path="res://scenes/demon.gd" id="17_7uudr"]
+[ext_resource type="Script" uid="uid://clg77oaqdpoe5" path="res://scenes/doggo.gd" id="17_j5mx7"]
+[ext_resource type="Texture2D" uid="uid://b68pkdho1dcye" path="res://assets/images/speech.png" id="18_7uudr"]
+[ext_resource type="Texture2D" uid="uid://micikilawh66" path="res://assets/images/cerberus.png" id="20_oreud"]
+[ext_resource type="Texture2D" uid="uid://cmjfs1g4g4kx3" path="res://assets/images/woof.png" id="21_famq6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1dwa"]
 size = Vector2(1151, 29)
@@ -338,11 +342,30 @@ snap_style = 1
 accepted_draggable_types = Array[ExtResource("4_n25ve")]([SubResource("Resource_pb500")])
 metadata/_custom_type_script = "uid://nj1hdjl1vob2"
 
-[node name="Demon" type="Sprite2D" parent="Background/SummoningCircle" unique_id=613870971 node_paths=PackedStringArray("shelf")]
-position = Vector2(564, 293)
-texture = ExtResource("16_xn73h")
+[node name="DemonBlock" type="Area2D" parent="Background/SummoningCircle" unique_id=1522480520 node_paths=PackedStringArray("shelf")]
 script = ExtResource("17_7uudr")
 shelf = NodePath("../../../Inventory/Shelf")
+
+[node name="Demon" type="Sprite2D" parent="Background/SummoningCircle/DemonBlock" unique_id=613870971]
+position = Vector2(564, 293)
+texture = ExtResource("16_xn73h")
+
+[node name="Speech" type="Sprite2D" parent="Background/SummoningCircle/DemonBlock" unique_id=1151194237]
+position = Vector2(419, 216)
+texture = ExtResource("18_7uudr")
+
+[node name="DoggoBlock" type="Node2D" parent="Background/SummoningCircle" unique_id=2055842901 node_paths=PackedStringArray("shelf")]
+script = ExtResource("17_j5mx7")
+shelf = NodePath("../../../Inventory/Shelf")
+
+[node name="Doggo" type="Sprite2D" parent="Background/SummoningCircle/DoggoBlock" unique_id=618351614]
+position = Vector2(562, 304)
+scale = Vector2(0.44849786, 0.37514585)
+texture = ExtResource("20_oreud")
+
+[node name="Speech" type="Sprite2D" parent="Background/SummoningCircle/DoggoBlock" unique_id=476969800]
+position = Vector2(345, 183)
+texture = ExtResource("21_famq6")
 
 [node name="ColorRect" type="ColorRect" parent="Background" unique_id=1572187073]
 z_index = -1
